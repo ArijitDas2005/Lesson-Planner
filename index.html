@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Lesson Planner</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="topbar"><a class="brand" href="#"><span class="mark">L</span><span>Lesson Planner</span></a><span class="top-note">A little help with your next lesson</span><button id="save-indicator" class="save-indicator">Saved on this device</button></header>
+  <main class="layout">
+    <aside class="sidebar">
+      <div class="side-heading">LESSONS</div>
+      <button class="nav active" data-panel="build"><span>✳</span> New lesson</button>
+      <button class="nav" data-panel="library"><span>▤</span> Saved lessons <span class="count" id="lesson-count">0</span></button>
+      <div class="side-divider"></div>
+      <div class="side-heading">YOUR WORKFLOW</div>
+      <div class="side-step"><i>1</i><div><b>Research</b><small>Find books, pages, and videos</small></div></div>
+      <div class="side-step"><i>2</i><div><b>Build</b><small>Plan a 45-minute class</small></div></div>
+      <div class="side-step"><i>3</i><div><b>Review</b><small>Check facts and teaching flow</small></div></div>
+      <div class="sidebar-foot"><span class="status-dot"></span> Drafts stay in this browser</div>
+    </aside>
+    <section class="main" id="build-panel">
+      <div class="intro"><div class="eyebrow">A FRESH START</div><h1>Let's plan a lesson</h1><p>Start with what you want learners to take away. Gather a few good sources, shape the lesson, then give it a quick review.</p></div>
+      <div class="steps"><span class="step-current"><b>1</b> DETAILS</span><span class="step-line"></span><span><b>2</b> SOURCES</span><span class="step-line"></span><span><b>3</b> REVIEW</span></div>
+      <div class="card brief-card"><div class="card-head"><div><span class="kicker">STEP 1</span><h2>Lesson details</h2></div><span class="time-pill">⏱ &nbsp;45 minutes</span></div>
+        <label for="title">WHAT'S THE LESSON ABOUT?</label><input id="title" placeholder="For example: HTTP requests and responses" maxlength="120">
+        <label for="objective">WHAT SHOULD LEARNERS BE ABLE TO DO? <span class="label-hint">A clear, observable goal works best</span></label><textarea id="objective" rows="2" placeholder="By the end, learners can…"></textarea>
+        <div class="actions"><button class="btn-ghost" id="sample-http">Try the HTTP example</button><button class="btn-ghost" id="sample-sql">Try the SQL joins example</button><button class="btn-primary" id="research-btn">Find some sources <span>↗</span></button></div>
+        <div id="input-error" class="error" hidden></div>
+      </div>
+      <div class="card research-card"><div class="card-head"><div><span class="kicker">STEP 2</span><h2>Gather a few good sources</h2><p>Look for books, trusted websites, and useful videos. Add the ones you’d feel comfortable sharing with your class.</p></div><span class="source-count" id="source-count">0 SOURCES</span></div>
+        <div class="search-links" id="search-links"><span>Browse:</span><a id="web-search" target="_blank" rel="noreferrer">Web ↗</a><a id="book-search" target="_blank" rel="noreferrer">Books ↗</a><a id="video-search" target="_blank" rel="noreferrer">YouTube ↗</a><button class="btn-small" id="research-run">Search for sources</button></div>
+        <div id="research-results" class="research-results"></div>
+        <div id="source-list"></div>
+        <details class="add-source" open><summary>＋ Have a source already? Add it here</summary><div class="source-form"><select id="source-type"><option>Website / standard</option><option>Book</option><option>YouTube video</option><option>Research paper</option></select><input id="source-name" placeholder="Title, author, or publisher"><input id="source-url" placeholder="https://…"><input id="source-note" placeholder="What does it help explain? (a short note)"><button id="add-source" class="btn-small">Add source</button></div></details>
+        <div class="ai-row"><label class="check"><input type="checkbox" id="use-ai"> Get help drafting and reviewing</label><span class="label-hint">Optional</span><details class="ai-settings"><summary>Connect a writing service</summary><div class="ai-fields"><input id="api-url" placeholder="Service URL"><input id="api-model" placeholder="Model name"><input id="api-key" type="password" placeholder="Access key"></div></details></div>
+        <p class="privacy-note">Search results are starting points, so open and review sources before teaching. If you connect a writing service, your lesson title, goal, source notes, and access key are sent to it when you draft or review. The app doesn’t save your key on this device.</p>
+      </div>
+      <div class="generate-row"><div><b>Ready to shape the lesson?</b><small>Plan for a focused 45-minute session.</small></div><button class="btn-primary btn-large" id="generate-btn">Build my lesson <span>→</span></button></div>
+      <div id="lesson-area" hidden>
+        <div class="result-head"><div><span class="kicker">STEP 3 · REVIEW</span><h2 id="result-title"></h2><p id="result-objective" class="muted"></p></div><div class="result-actions"><button class="btn-ghost" id="save-btn">Save draft</button><button class="btn-ghost" id="export-md">Download Markdown</button><button class="btn-ghost" id="export-json">Download JSON backup</button></div></div>
+        <div class="qc-grid"><div class="qc-card"><div class="qc-title"><span class="qc-icon blue">01</span><div><b>Do the sources support it?</b><small>FACTS & SOURCES</small></div></div><div id="qc-research" class="qc-body"></div><button id="run-qc1" class="btn-ghost qc-run">↻ Review facts</button><button id="apply-qc1" class="btn-ghost qc-run">Add notes to lesson</button></div><div class="qc-card"><div class="qc-title"><span class="qc-icon orange">02</span><div><b>Will this work for learners?</b><small>TEACHING & CLARITY</small></div></div><div id="qc-instruction" class="qc-body"></div><button id="run-qc2" class="btn-ghost qc-run">↻ Review lesson</button><button id="apply-qc2" class="btn-ghost qc-run">Add notes to lesson</button></div></div>
+        <div class="lesson-paper"><div class="paper-top"><span>YOUR LESSON · Click anywhere to edit</span><span id="duration-badge">45 MIN</span></div><div id="lesson-content" class="editor" contenteditable="true" spellcheck="true"></div></div>
+        <div class="final-actions"><span>Your edits are saved with this draft.</span><button class="btn-primary" id="final-save">Save final version →</button></div>
+      </div>
+      <div id="library-panel" hidden><div class="result-head"><div><span class="kicker">SAVED LESSONS</span><h2>Your lessons</h2><p class="muted">Saved on this device.</p></div><button class="btn-ghost" id="back-studio">← Lesson studio</button></div><div id="library-list"></div></div>
+      <footer>LESSON PLANNER <span>·</span> Your sources travel with the lesson. Give everything a read before class.</footer>
+    </section>
+  </main>
+  <div id="toast" class="toast" hidden></div>
+  <script src="app.js"></script>
+</body></html>
